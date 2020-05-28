@@ -1,0 +1,11 @@
+# Task1 C codes
+
+Reverse the string by words which entered by user from standardinput and reverse the word which are seperated by space and print final string as output. string header file use is allowed for sample input and ouput please refer Below
+
+#Sample I/P
+
+vinit kumar Pune
+
+#output I/p
+
+Pune kumar vinit
