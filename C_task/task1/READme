@@ -9,3 +9,18 @@ vinit kumar Pune
 #output I/p
 
 Pune kumar vinit
+
+
+solutions:
+
+Venky:
+
+	By doing realloc reassigning character, No static array used. string.h lib used
+
+Vinit:
+
+	By using Memcpy function For shifting array, static array used. string.h lib used
+
+Chinmay:
+
+	No string.h lib used, Only By looping, Static array used 
