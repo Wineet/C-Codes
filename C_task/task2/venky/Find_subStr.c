@@ -1,6 +1,8 @@
 /*Add Code Description in Files by comments*/
 #include<stdio.h>
 #include<stdlib.h>
+#include<sys/types.h>
+
 #define msg(x) printf("%s : ",x)
 int main()
 {
