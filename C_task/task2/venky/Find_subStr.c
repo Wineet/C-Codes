@@ -1,3 +1,4 @@
+/*Add Code Description in Files by comments*/
 #include<stdio.h>
 #include<stdlib.h>
 #define msg(x) printf("%s : ",x)
