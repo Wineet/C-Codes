@@ -33,7 +33,7 @@ char * strstr_case_insensitive(const char *ipStr,const char *sub)
 	int i = 0,j= 0;
 	for(i=0;ipStr[i]!= '\0';i++)
 	{
-		if(((ipStr[i]>=97?ipStr[i]:ipStr[i]+32) ==(sub[j]>=97?sub[j]:sub[j]+32 ) )&& (i==0 || ipStr[i-1]== ' '))
+		if(((ipStr[i]>=97?ipStr[i]:ipStr[i]+32) ==(sub[j]>=97?sub[j]:sub[j]+32 ) )/*&& (i==0 || ipStr[i-1]== ' ')*/)
 		{
               		for(j=0;ipStr[i]!='\0' && sub[j]!='\0';i++,j++)
 	      		{
