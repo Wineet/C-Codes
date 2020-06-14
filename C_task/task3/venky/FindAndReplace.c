@@ -25,7 +25,9 @@ int main()
       printf("%s\n",newStr);
    else
       printf("\n ====>no match found for \"%s\" in \"%s\"\n",findStr,mainStr);
-
+free(mainStr);
+free(findStr);
+free(repWithStr);
 	return 0;
 
 }
@@ -42,24 +44,31 @@ char *getStr(void)
 	}
 	str = (char*)realloc(str,(Allocate+1)*sizeof(char));
 	str[Allocate] = '\0';
-	//Allocate++; //check
 
 	return str;
 
 	
 }
+
+/***************************************************************************************************************************
+* while doing realloc for findStr<ReplaceStr we need to take care of reallocation address
+* in case if page size for string is not available then the address of allocated memory may change 
+* in this case we also need to change our strstr pointer address if not done so the strstr return pointer will point to 
+* previous memory location.
+****************************************************************************************************************************/
 char *findAndReplace(char *replaceIn,char *findThis,char* replaceWith)
 {
    char *str = NULL;
 	unsigned int lenFindStr = strlen(findThis);
 	unsigned int lenRepStr = strlen(replaceWith);
+	unsigned int PtrDiff = 0;   // to check difference between current allocated address and strstr return pointer
+
    char found =0;
    unsigned int mainLen = 0U;
 	str = strstr(replaceIn,findThis);
    
 	while(str != NULL)
 	{
-    // puts("founddddddd"); 
       found = 1U;
       if(lenFindStr > lenRepStr)
       {
@@ -68,29 +77,31 @@ char *findAndReplace(char *replaceIn,char *findThis,char* replaceWith)
          
          
          memmove((str+lenRepStr),(str+lenFindStr),strlen(str+lenFindStr)+1);
-         //memset((str+strlen(replaceIn)),'\0',diff - strlen(replaceIn));
         
          replaceIn = (char*)realloc(replaceIn,strlen(replaceIn)+1);
-         
+         if(NULL == replaceIn)
+         {
+            puts("realloc failed");
+            exit(0);
+         }	
 
       }
       else if(lenFindStr < lenRepStr)
       {
          //allocate and --> shift
          
-         //ven mahind
-         //venkatesh 
          mainLen =strlen(replaceIn);
-         printf("mainStr->%s\n",replaceIn);
-        
+         PtrDiff = str - replaceIn; //finding strstr current pointer
          replaceIn = (char*)realloc(replaceIn,(mainLen+(lenRepStr-lenFindStr)+1));
-         memmove(/*str+(lenRepStr-lenFindStr)+1 */str+lenRepStr,str+lenFindStr,strlen(str+lenFindStr)+1);
-         printf("      1->%s\n",replaceIn);
-         //strncpy(str,replaceWith,lenRepStr);
-         memmove(str,replaceWith,lenRepStr);
-         printf("  %ld   2->%s\n",strlen(replaceIn),replaceIn);
-         str = str+lenRepStr;
-         printf("Update3->%s\n",str);
+         if(NULL == replaceIn)
+         {
+            puts("realloc failed");
+            exit(0);
+         }
+
+         memmove(replaceIn+PtrDiff+lenRepStr,replaceIn+PtrDiff+lenFindStr,strlen(replaceIn+PtrDiff+lenFindStr)+1); //updating pointer
+         memmove(replaceIn+PtrDiff,replaceWith,lenRepStr);
+         str = replaceIn+PtrDiff+lenRepStr;
         
 
       }
@@ -105,7 +116,6 @@ char *findAndReplace(char *replaceIn,char *findThis,char* replaceWith)
 	if(found == 0)
 	{
       
-//		printf("\n--------------\nno match found\n--------------\n");
       return NULL;
 	}	
 	return replaceIn;
