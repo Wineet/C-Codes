@@ -8,7 +8,7 @@ int main()
 {   
     char str1[100] = "Hi everyone hope so everyone is fine ";
     char *find_str="everyone";
-    char *replace_str= "everyonepp"; 
+    char *replace_str= "@"; 
     
     char *find_ptr = NULL;    
     int replace_str_len = strlen(replace_str);
