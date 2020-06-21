@@ -1,0 +1,24 @@
+tatement: Finding weather main string content shuffled string or not, if it is present then print "yes" otherwise "No". the program should work as "strstr" function call only but this time string can be shuffled
+for example
+
+Program coded array can be used not Mandatory to take it from User
+
+Following Test cases should be passed
+ 
+Main string: myNameIstiniv                         //vinit is present
+substring :vinit
+output: yes
+ 
+Main string: hellorolwdhi                       //world is present in shuffled Format
+substring :world
+output: yes
+
+Main string: Goodpumorningne              //pune shuffled string not present
+substring :pune
+output: No
+
+Main string: Goodmorning             
+substring : morningGood
+output :yes
+
+
